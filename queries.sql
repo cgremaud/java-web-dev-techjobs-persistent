@@ -1,5 +1,9 @@
 ## Part 1: Test it with SQL
-
+Answer:
+id int primary key
+employer varchar
+name varchar
+skills varchar
 ## Part 2: Test it with SQL
 
 ## Part 3: Test it with SQL
