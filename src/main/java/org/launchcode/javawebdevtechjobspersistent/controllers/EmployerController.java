@@ -14,6 +14,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("employers")
 public class EmployerController {
+
     @Autowired
     private EmployerRepository employerRepository;
 
@@ -22,6 +23,7 @@ public class EmployerController {
         model.addAttribute("employers", employerRepository.findAll());
         return "index";
     }
+
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute(new Employer());
@@ -34,9 +36,10 @@ public class EmployerController {
 
         if (errors.hasErrors()) {
             return "employers/add";
+        } else {
+            employerRepository.save(newEmployer);
+            return "redirect:";
         }
-        employerRepository.save(newEmployer);
-        return "redirect:";
     }
 
     @GetMapping("view/{employerId}")
