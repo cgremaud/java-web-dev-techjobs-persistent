@@ -45,7 +45,7 @@ public class HomeController {
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
-
+        //New jobs are not being saved to the db yet because i haven't added the many-to-many relationship
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
