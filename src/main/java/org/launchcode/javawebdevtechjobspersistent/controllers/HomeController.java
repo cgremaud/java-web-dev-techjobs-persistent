@@ -66,6 +66,7 @@ public class HomeController {
         newJob.setSkills(skillObjs);
         newJob.setEmployer(selectedEmployer);
         jobRepository.save(newJob);
+        model.addAttribute("jobs", jobRepository.findAll());
         return "redirect:";
     }
 
