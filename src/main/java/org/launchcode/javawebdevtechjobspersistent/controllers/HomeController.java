@@ -2,7 +2,9 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.SkillsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +27,9 @@ public class HomeController {
 
     @Autowired
     private SkillsRepository skillsRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -51,10 +57,14 @@ public class HomeController {
             return "add";
         }
         Optional<Employer> optEmployer = employerRepository.findById(employerId);
-        if(optEmployer.isEmpty()) {
+        if(optEmployer.isEmpty()) { //this check may not be necessary since you can only select from the list of available ones.
             return "redirect:";
         }
         Employer selectedEmployer = optEmployer.get();
+        List<Skill> skillObjs = (List<Skill>) skillsRepository.findAllById(skills);
+        newJob.setSkills(skillObjs);
+        newJob.setEmployer(selectedEmployer);
+        jobRepository.save(newJob);
         return "redirect:";
     }
 
