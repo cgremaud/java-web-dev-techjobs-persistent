@@ -14,4 +14,8 @@ SELECT * FROM techjobs.employer WHERE (location = "St. Louis City");
 DROP TABLE techjobs.job`;
 
 ## Part 4: Test it with SQL
-select name, description from skill where job_id = not null ##idk probably have to join it using the join table. job_skills
+select distinct skill.name, skill.description
+from job_skills
+join job on job.id = job_skills.jobs_id
+join skill on skill.id = job_skills.skills_id
+order by skill.name asc;

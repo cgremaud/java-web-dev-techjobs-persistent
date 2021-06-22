@@ -55,7 +55,7 @@ public class HomeController {
         //New jobs are not being saved to the db yet because i haven't added the many-to-many relationship
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
-            return "add";
+            return "redirect:";
         }
         Optional<Employer> optEmployer = employerRepository.findById(employerId);
         if(optEmployer.isEmpty()) { //this check may not be necessary since you can only select from the list of available ones.
